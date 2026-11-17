@@ -49,6 +49,16 @@ function check(id, name, cond, detail) {
   check("HU04-E1", "Al enviar a 5 jueces, cada uno recibe un enlace distinto",
     links.length === 5 && new Set(links).size === 5, links.length + " enlaces, " + new Set(links).size + " distintos");
 
+  // HU01-E3: once the instrument was sent, its items cannot be edited
+  await p.evaluate(() => { location.hash = "#/hu01"; });
+  await p.waitForSelector("#it-0-0");
+  t = await text(p, ".main");
+  const locked = await p.locator("#it-0-0").isDisabled();
+  check("HU01-E3", "Un instrumento ya enviado no se puede editar",
+    locked && /Este instrumento ya se envió a sus jueces\. Sus ítems no se pueden editar\./.test(t));
+  await p.evaluate(() => { location.hash = "#/hu04"; });
+  await p.waitForSelector("tbody code");
+
   const before = await p.locator("tbody code").first().innerText();
   await p.locator('[data-act="resend"]').first().click();
   const after = await p.locator("tbody code").first().innerText();
