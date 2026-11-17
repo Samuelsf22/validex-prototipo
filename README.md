@@ -19,6 +19,7 @@ node --test tests/calc.test.js        # cálculo: V de Aiken, intervalo Score y 
 npm install                           # playwright-core, solo para las pruebas de aceptación
 python -m http.server 8765            # en otra terminal
 CHROME_PATH="<ruta a chrome.exe>" node tests/acceptance.cjs
+CHROME_PATH="<ruta a chrome.exe>" node tests/accessibility.cjs   # auditoría con axe-core
 ```
 
 Las pruebas de aceptación cubren las historias HU01, HU04, HU07 y HU11.

@@ -393,6 +393,7 @@
   function render() {
     var hu = current(), root = document.getElementById("root"), s = SCREENS.filter(function (x) { return x.hu === hu; })[0];
     root.innerHTML = s ? s.f() : map();
+    Array.prototype.forEach.call(root.querySelectorAll(".tablewrap"), function (w) { w.tabIndex = 0; w.setAttribute("role", "region"); w.setAttribute("aria-label", "Tabla desplazable"); });
     document.getElementById("strip-tag").textContent = s ? "IU" + pad(hu) + " · " + s.t : "Prototipo";
     document.title = (s ? "IU" + pad(hu) + " " + s.t + " · " : "") + "Validex";
   }
